@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Certificado de regalo ecológico</title>
+  <title>Certificado de adopción ecológica</title>
   <style>
     :root{
       --bg:#e7ebe4;
@@ -540,7 +540,7 @@
 <body>
   <div class="topbar">
     <div class="topbar-note">
-      Certificado de regalo ecológico. Puedes imprimirlo o guardarlo como PDF.
+      Certificado de adopción ecológica. Puedes imprimirlo o guardarlo como PDF.
     </div>
     <div class="actions">
       <button class="btn btn-secondary" onclick="window.print()">Imprimir / Guardar PDF</button>
@@ -561,41 +561,41 @@
             <span>Restauración ecológica</span>
           </div>
           <div class="official">
-            Certificado oficial<br>de regalo ecológico
+            Certificado oficial<br>de adopción ecológica
           </div>
         </div>
 
         <div class="hero">
-          <span class="black">Has recibido una</span>
-          <span class="green1">adopción</span>
-          <span class="green2">ecológica</span>
+          <span class="black">Gracias por</span>
+          <span class="green1">adoptar</span>
+          <span class="green2">vida</span>
         </div>
 
         <div class="subtext">
-          Este regalo representa un gesto de <strong>vida, cuidado y restauración</strong> para los páramos y bosques de Colombia.
+          Tu adopción contribuye a la <strong>restauración y protección</strong> de los páramos y ecosistemas que llenan de vida a Colombia.
         </div>
 
         <div class="certificate">
-          <div class="kicker">Certificado oficial de regalo ecológico</div>
-          <h1 class="title">Un regalo con vida</h1>
+          <div class="kicker">Certificado oficial de adopción ecológica</div>
+          <h1 class="title">Un gesto de cuidado y esperanza</h1>
           <p class="lead">
-            Este certificado reconoce una adopción ecológica realizada como regalo, celebrando el cuidado de especies nativas y la restauración de ecosistemas de montaña.
+            Este certificado reconoce tu aporte a la conservación de especies nativas y a la restauración ecológica de ecosistemas altoandinos.
           </p>
 
           <div class="meta">
-            <div class="row" id="recipientRow">
-              <div class="label">Otorgado a</div>
-              <div class="value" id="recipientValue">—</div>
+            <div class="row" id="adoptanteRow">
+              <div class="label">Adoptante</div>
+              <div class="value" id="adoptanteValue">—</div>
             </div>
 
-            <div class="row" id="giverRow">
-              <div class="label">Regalado por</div>
-              <div class="value" id="giverValue">—</div>
-            </div>
-
-            <div class="row" id="typeRow">
+            <div class="row" id="tipoRow">
               <div class="label">Tipo de adopción</div>
-              <div class="value" id="typeValue">Adopción ecológica</div>
+              <div class="value" id="tipoValue">Adopción ecológica</div>
+            </div>
+
+            <div class="row hidden" id="adopcionRow">
+              <div class="label">Nombre de adopción</div>
+              <div class="value" id="adopcionValue">—</div>
             </div>
 
             <div class="row" id="frailejonRow">
@@ -607,15 +607,10 @@
               <div class="label">Planta nativa</div>
               <div class="value" id="plantaValue">—</div>
             </div>
-
-            <div class="row hidden" id="adopcionRow">
-              <div class="label">Nombre de adopción</div>
-              <div class="value" id="adopcionValue">—</div>
-            </div>
           </div>
 
           <div class="story" id="storyText">
-            Este certificado acredita que esta adopción ecológica ha sido entregada como un símbolo de cuidado, esperanza y compromiso con la restauración de la vida en los ecosistemas altoandinos de Colombia.
+            Este certificado acredita una adopción ecológica como símbolo de cuidado, restauración y compromiso con la vida de los ecosistemas de montaña de Colombia.
           </div>
 
           <div class="footerline">
@@ -697,7 +692,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "index-regalo.html";
+      a.download = "index-adopcion.html";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -705,18 +700,10 @@
     }
 
     // Parámetros esperados
-    const recipient =
-      qs("regalado") ||
-      qs("destinatario") ||
-      qs("recibe") ||
-      qs("persona") ||
-      qs("nombre_regalado");
-
-    const giver =
-      qs("regalante") ||
+    const adoptante =
       qs("nombre") ||
-      qs("donante") ||
-      qs("quien_regala");
+      qs("adoptante") ||
+      qs("persona");
 
     const frailejon =
       qs("frailejon");
@@ -732,16 +719,10 @@
     const hasAdopcion = adopcion !== "";
 
     // Pintar datos
-    if(recipient){
-      text("recipientValue", recipient);
+    if(adoptante){
+      text("adoptanteValue", adoptante);
     } else {
-      text("recipientValue", "Persona destinataria");
-    }
-
-    if(giver){
-      text("giverValue", giver);
-    } else {
-      hide("giverRow");
+      text("adoptanteValue", "Adoptante");
     }
 
     if(hasFrailejon){
@@ -762,27 +743,25 @@
     }
 
     // Tipo dinámico
-    let typeLabel = "Adopción ecológica";
+    let tipo = "Adopción ecológica";
     if(hasFrailejon && hasPlanta){
-      typeLabel = "Combo ecológico";
+      tipo = "Combo ecológico";
     } else if(hasFrailejon){
-      typeLabel = "Frailejón";
+      tipo = "Frailejón";
     } else if(hasPlanta){
-      typeLabel = "Planta nativa";
+      tipo = "Planta nativa";
     } else if(hasAdopcion){
-      typeLabel = adopcion;
+      tipo = adopcion;
     }
-    text("typeValue", typeLabel);
+    text("tipoValue", tipo);
 
-    // Texto narrativo
+    // Story dinámico
     let story = "";
 
-    if(recipient && giver){
-      story += `Este certificado acredita que ${recipient} ha recibido una adopción ecológica como regalo de ${giver}. `;
-    } else if(recipient){
-      story += `Este certificado acredita que ${recipient} ha recibido una adopción ecológica como regalo. `;
+    if(adoptante){
+      story += `Este certificado acredita que ${adoptante} ha realizado una adopción ecológica como un gesto de cuidado, vida y restauración para los ecosistemas altoandinos de Colombia. `;
     } else {
-      story += `Este certificado acredita la entrega de una adopción ecológica como regalo. `;
+      story += `Este certificado acredita una adopción ecológica como un gesto de cuidado, vida y restauración para los ecosistemas altoandinos de Colombia. `;
     }
 
     if(hasFrailejon && hasPlanta){
@@ -792,9 +771,7 @@
     } else if(hasPlanta){
       story += `La adopción incluye la planta nativa “${planta}”. `;
     } else if(hasAdopcion){
-      story += `La adopción corresponde a “${adopcion}”. `;
-    } else {
-      story += `Esta acción representa un gesto de cuidado, vida y restauración para los páramos y bosques de Colombia. `;
+      story += `Esta adopción corresponde a “${adopcion}”. `;
     }
 
     story += `Gracias por hacer parte de esta acción de conservación, memoria ecológica y esperanza.`;
