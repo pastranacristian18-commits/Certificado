@@ -3,18 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Certificado de adopción ecológica</title>
+  <title>Certificado de adopción</title>
   <style>
     :root{
-      --bg:#e7ebe4;
       --paper:#f4f1ea;
       --paper-2:#eeece4;
-      --card:#fbfaf7;
       --ink:#111111;
       --muted:#374038;
       --olive:#879a45;
       --teal:#557b78;
-      --sage:#a9b88d;
       --line:#8ea067;
       --shadow:rgba(14,22,14,.14);
     }
@@ -29,21 +26,21 @@
         radial-gradient(circle at 85% 25%, rgba(85,123,120,.09), transparent 18%),
         linear-gradient(180deg, #e8ece6 0%, #dde3db 100%);
       color:var(--ink);
-      font-family: Arial, Helvetica, sans-serif;
+      font-family:Arial, Helvetica, sans-serif;
     }
 
     body{
       min-height:100vh;
-      padding:28px;
+      padding:20px;
     }
 
     .topbar{
-      width:min(1180px,100%);
-      margin:0 auto 18px auto;
+      width:min(1120px,100%);
+      margin:0 auto 14px auto;
       display:flex;
       justify-content:space-between;
-      gap:12px;
       align-items:center;
+      gap:12px;
       flex-wrap:wrap;
     }
 
@@ -63,28 +60,22 @@
       appearance:none;
       border:none;
       cursor:pointer;
-      padding:12px 16px;
+      padding:12px 18px;
       border-radius:999px;
       font-weight:700;
       font-size:14px;
       transition:transform .15s ease;
-    }
-
-    .btn:hover{ transform:translateY(-1px); }
-
-    .btn-primary{
       background:#233a31;
       color:#fff;
     }
 
-    .btn-secondary{
-      background:#d8dfd4;
-      color:#233a31;
+    .btn:hover{
+      transform:translateY(-1px);
     }
 
     .sheet{
       position:relative;
-      width:min(1180px,100%);
+      width:min(1120px,100%);
       margin:0 auto;
       background:
         radial-gradient(circle at 18% 78%, rgba(135,154,69,.12), transparent 18%),
@@ -93,14 +84,14 @@
       overflow:hidden;
       box-shadow:0 24px 60px var(--shadow);
       border:1px solid rgba(0,0,0,.05);
-      min-height:760px;
+      min-height:700px;
     }
 
     .sheet::before{
       content:"";
       position:absolute;
       inset:0;
-      opacity:.25;
+      opacity:.22;
       background-image:
         radial-gradient(rgba(0,0,0,.03) 0.8px, transparent 0.8px),
         radial-gradient(rgba(0,0,0,.02) 1px, transparent 1px);
@@ -136,12 +127,12 @@
       position:relative;
       z-index:2;
       display:grid;
-      grid-template-columns:53% 47%;
-      min-height:760px;
+      grid-template-columns:44% 56%;
+      min-height:700px;
     }
 
     .left{
-      padding:40px 38px 30px 42px;
+      padding:34px 28px 28px 34px;
       display:flex;
       flex-direction:column;
       position:relative;
@@ -149,7 +140,10 @@
 
     .right{
       position:relative;
-      overflow:hidden;
+      padding:34px 34px 28px 10px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
     }
 
     .topline{
@@ -196,7 +190,7 @@
 
     .hero{
       margin-top:8px;
-      max-width:560px;
+      max-width:480px;
       line-height:.92;
       letter-spacing:-1.2px;
     }
@@ -205,7 +199,7 @@
       display:block;
       font-weight:900;
       color:#101010;
-      font-size:clamp(42px, 4.6vw, 72px);
+      font-size:clamp(38px, 4.4vw, 64px);
       font-family:Arial, Helvetica, sans-serif;
     }
 
@@ -218,18 +212,18 @@
 
     .hero .green1{
       color:var(--olive);
-      font-size:clamp(62px, 5.4vw, 95px);
+      font-size:clamp(58px, 5vw, 88px);
     }
 
     .hero .green2{
       color:var(--teal);
-      font-size:clamp(60px, 5.1vw, 90px);
+      font-size:clamp(54px, 4.7vw, 82px);
     }
 
     .subtext{
       margin-top:24px;
-      max-width:500px;
-      font-size:22px;
+      max-width:420px;
+      font-size:21px;
       line-height:1.36;
       color:#222b24;
     }
@@ -237,11 +231,10 @@
     .subtext strong{ font-weight:900; }
 
     .certificate{
-      margin-top:30px;
-      width:min(94%, 580px);
-      background:rgba(255,255,255,.54);
+      width:100%;
+      background:rgba(255,255,255,.58);
       border-left:6px solid var(--line);
-      padding:24px 24px 22px;
+      padding:26px 28px 24px;
       box-shadow:0 10px 24px rgba(0,0,0,.05);
       position:relative;
     }
@@ -257,7 +250,7 @@
 
     .title{
       margin:0 0 12px 0;
-      font-size:38px;
+      font-size:40px;
       line-height:1.02;
       font-family:Georgia, "Times New Roman", serif;
       font-weight:700;
@@ -265,11 +258,11 @@
     }
 
     .lead{
-      margin:0 0 18px 0;
+      margin:0 0 20px 0;
       font-size:15px;
-      line-height:1.6;
+      line-height:1.7;
       color:#445046;
-      max-width:95%;
+      max-width:100%;
     }
 
     .meta{
@@ -288,77 +281,34 @@
     }
 
     .label{
-      min-width:155px;
+      min-width:170px;
       color:#4c6852;
       font-weight:800;
     }
 
     .value{
       flex:1;
-      min-width:200px;
+      min-width:220px;
       word-break:break-word;
     }
 
     .story{
-      margin-top:18px;
+      margin-top:20px;
       padding:16px 18px;
       background:rgba(247,249,242,.95);
       font-size:16px;
-      line-height:1.65;
+      line-height:1.7;
       color:#334038;
       border-radius:10px;
     }
 
-    .story strong{ color:#274236; }
-
-    .footerline{
-      margin-top:22px;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:18px;
-    }
-
-    .sign{
-      padding-top:18px;
-      border-top:1.5px solid rgba(50,64,52,.45);
-      text-align:center;
-      font-size:14px;
-      color:#344138;
-    }
-
-    .brandfooter{
-      margin-top:auto;
-      width:255px;
-      position:relative;
-      z-index:3;
-    }
-
-    .wave{
-      height:14px;
-      background:
-        radial-gradient(circle at 10px -2px, transparent 11px, #7f8f65 12px, #7f8f65 14px, transparent 15px) repeat-x;
-      background-size:24px 14px;
-      margin-bottom:10px;
-    }
-
-    .brandname{
-      font-size:20px;
-      letter-spacing:2.2px;
-      font-weight:800;
-      color:#536a50;
-    }
-
-    .brandsub{
-      margin-top:4px;
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:2.6px;
-      color:#536a50;
+    .story strong{
+      color:#274236;
     }
 
     .side-note{
       position:absolute;
-      top:52px;
+      top:46px;
       right:26px;
       writing-mode:vertical-rl;
       transform:rotate(180deg);
@@ -386,23 +336,23 @@
     }
 
     .collage.top{
-      width:230px;height:344px;right:118px;top:-6px;
+      width:210px;height:300px;right:118px;top:-4px;
       clip-path:polygon(32% 0%, 70% 0%, 88% 18%, 79% 52%, 100% 92%, 73% 100%, 54% 76%, 36% 100%, 10% 92%, 31% 50%, 18% 18%);
       transform:rotate(4deg);
     }
 
     .collage.bottom{
-      width:252px;height:360px;right:36px;bottom:-26px;
+      width:228px;height:320px;right:36px;bottom:-24px;
       clip-path:polygon(23% 0%, 48% 9%, 68% 0%, 95% 16%, 80% 46%, 100% 100%, 70% 92%, 54% 64%, 35% 95%, 8% 100%, 28% 46%, 0% 14%);
       transform:rotate(-16deg);
     }
 
     .plant-badge{
       position:absolute;
-      top:124px;
-      right:146px;
-      width:124px;
-      height:124px;
+      top:118px;
+      right:140px;
+      width:118px;
+      height:118px;
       border-radius:50%;
       background:
         radial-gradient(circle at 40% 35%, rgba(255,255,255,.94) 0%, rgba(235,240,214,.96) 40%, rgba(198,210,164,.93) 100%);
@@ -415,8 +365,8 @@
 
     .succulent{
       position:relative;
-      width:78px;
-      height:78px;
+      width:76px;
+      height:76px;
     }
 
     .leaf{
@@ -440,6 +390,7 @@
       position:absolute;
       width:62px;height:26px;z-index:5;opacity:.92;
     }
+
     .bird::before,.bird::after{
       content:"";
       position:absolute;
@@ -447,10 +398,11 @@
       border-top:3px solid rgba(0,0,0,.8);
       border-radius:60% 60% 0 0;
     }
+
     .bird::before{left:0;transform:rotate(10deg)}
     .bird::after{right:0;transform:rotate(-10deg)}
-    .bird.b1{top:210px;right:24px;transform:scale(.72) rotate(-10deg)}
-    .bird.b2{top:94px;right:10px;transform:scale(.94) rotate(4deg)}
+    .bird.b1{top:200px;right:22px;transform:scale(.72) rotate(-10deg)}
+    .bird.b2{top:88px;right:10px;transform:scale(.94) rotate(4deg)}
 
     .landscape{
       position:absolute;
@@ -499,18 +451,42 @@
 
     .hidden{display:none !important}
 
+    @page{
+      size: letter landscape;
+      margin: 10mm;
+    }
+
     @media print{
-      body{
+      html, body{
+        width:279.4mm;
+        height:215.9mm;
+        background:#fff !important;
+        margin:0;
         padding:0;
-        background:#fff;
       }
+
+      body{
+        display:block;
+      }
+
       .topbar{
         display:none !important;
       }
+
       .sheet{
-        width:100%;
-        box-shadow:none;
-        border:none;
+        width:100% !important;
+        min-height:auto !important;
+        box-shadow:none !important;
+        border:none !important;
+        margin:0 auto !important;
+      }
+
+      .inner{
+        min-height:auto !important;
+      }
+
+      .wash{
+        opacity:.35;
       }
     }
 
@@ -521,12 +497,10 @@
       }
       .right{
         min-height:320px;
+        padding:10px 22px 24px 22px;
       }
       .left{
-        padding:28px 22px 24px 22px;
-      }
-      .certificate{
-        width:100%;
+        padding:28px 22px 16px 22px;
       }
       .hero .black{font-size:44px}
       .hero .green1,.hero .green2{font-size:66px}
@@ -534,17 +508,18 @@
       .topline{gap:10px}
       .brandbox{min-width:auto}
       .plant-badge{top:92px;right:122px}
+      .side-note{display:none}
+      .certificate{padding:22px}
     }
   </style>
 </head>
 <body>
   <div class="topbar">
     <div class="topbar-note">
-      Certificado de adopción ecológica. Puedes imprimirlo o guardarlo como PDF.
+      Certificado de adopción. Puedes imprimirlo o guardarlo como PDF.
     </div>
     <div class="actions">
-      <button class="btn btn-secondary" onclick="window.print()">Imprimir / Guardar PDF</button>
-      <button class="btn btn-primary" onclick="downloadHTML()">Descargar HTML</button>
+      <button class="btn" onclick="window.print()">Descargar / Guardar PDF</button>
     </div>
   </div>
 
@@ -558,10 +533,10 @@
         <div class="topline">
           <div class="brandbox">
             <strong>CUMBRES BLANCAS</strong>
-            <span>Restauración ecológica</span>
+            <span>Restauración</span>
           </div>
           <div class="official">
-            Certificado oficial<br>de adopción ecológica
+            Certificado oficial<br>de adopción
           </div>
         </div>
 
@@ -573,56 +548,6 @@
 
         <div class="subtext">
           Tu adopción contribuye a la <strong>restauración y protección</strong> de los páramos y ecosistemas que llenan de vida a Colombia.
-        </div>
-
-        <div class="certificate">
-          <div class="kicker">Certificado oficial de adopción ecológica</div>
-          <h1 class="title">Un gesto de cuidado y esperanza</h1>
-          <p class="lead">
-            Este certificado reconoce tu aporte a la conservación de especies nativas y a la restauración ecológica de ecosistemas altoandinos.
-          </p>
-
-          <div class="meta">
-            <div class="row" id="adoptanteRow">
-              <div class="label">Adoptante</div>
-              <div class="value" id="adoptanteValue">—</div>
-            </div>
-
-            <div class="row" id="tipoRow">
-              <div class="label">Tipo de adopción</div>
-              <div class="value" id="tipoValue">Adopción ecológica</div>
-            </div>
-
-            <div class="row hidden" id="adopcionRow">
-              <div class="label">Nombre de adopción</div>
-              <div class="value" id="adopcionValue">—</div>
-            </div>
-
-            <div class="row" id="frailejonRow">
-              <div class="label">Frailejón</div>
-              <div class="value" id="frailejonValue">—</div>
-            </div>
-
-            <div class="row" id="plantaRow">
-              <div class="label">Planta nativa</div>
-              <div class="value" id="plantaValue">—</div>
-            </div>
-          </div>
-
-          <div class="story" id="storyText">
-            Este certificado acredita una adopción ecológica como símbolo de cuidado, restauración y compromiso con la vida de los ecosistemas de montaña de Colombia.
-          </div>
-
-          <div class="footerline">
-            <div class="sign">Firma autorizada</div>
-            <div class="sign">Cumbres Blancas</div>
-          </div>
-        </div>
-
-        <div class="brandfooter">
-          <div class="wave"></div>
-          <div class="brandname">CUMBRES BLANCAS</div>
-          <div class="brandsub">Páramos • Bosques • Restauración</div>
         </div>
       </div>
 
@@ -659,6 +584,45 @@
             <div class="creature tree3"></div>
           </div>
         </div>
+
+        <div class="certificate">
+          <div class="kicker">Certificado oficial de adopción</div>
+          <h1 class="title">Un gesto de cuidado y esperanza</h1>
+          <p class="lead">
+            Este certificado reconoce tu aporte a la conservación de especies nativas y a la restauración de ecosistemas altoandinos.
+          </p>
+
+          <div class="meta">
+            <div class="row" id="adoptanteRow">
+              <div class="label">Adoptante</div>
+              <div class="value" id="adoptanteValue">—</div>
+            </div>
+
+            <div class="row" id="tipoRow">
+              <div class="label">Tipo de adopción</div>
+              <div class="value" id="tipoValue">Adopción</div>
+            </div>
+
+            <div class="row hidden" id="adopcionRow">
+              <div class="label">Nombre de adopción</div>
+              <div class="value" id="adopcionValue">—</div>
+            </div>
+
+            <div class="row" id="frailejonRow">
+              <div class="label">Frailejón</div>
+              <div class="value" id="frailejonValue">—</div>
+            </div>
+
+            <div class="row" id="plantaRow">
+              <div class="label">Planta nativa</div>
+              <div class="value" id="plantaValue">—</div>
+            </div>
+          </div>
+
+          <div class="story" id="storyText">
+            Este certificado acredita una adopción como símbolo de cuidado, restauración y compromiso con la vida de los ecosistemas de montaña de Colombia.
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -686,39 +650,19 @@
       if(el) el.textContent = value;
     }
 
-    function downloadHTML(){
-      const html = document.documentElement.outerHTML;
-      const blob = new Blob([html], { type:"text/html;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "index-adopcion.html";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
-    // Parámetros esperados
     const adoptante =
       qs("nombre") ||
       qs("adoptante") ||
       qs("persona");
 
-    const frailejon =
-      qs("frailejon");
-
-    const planta =
-      qs("planta");
-
-    const adopcion =
-      qs("adopcion");
+    const frailejon = qs("frailejon");
+    const planta = qs("planta");
+    const adopcion = qs("adopcion");
 
     const hasFrailejon = frailejon !== "";
     const hasPlanta = planta !== "";
     const hasAdopcion = adopcion !== "";
 
-    // Pintar datos
     if(adoptante){
       text("adoptanteValue", adoptante);
     } else {
@@ -742,10 +686,9 @@
       document.getElementById("adopcionRow").classList.remove("hidden");
     }
 
-    // Tipo dinámico
-    let tipo = "Adopción ecológica";
+    let tipo = "Adopción";
     if(hasFrailejon && hasPlanta){
-      tipo = "Combo ecológico";
+      tipo = "Combo";
     } else if(hasFrailejon){
       tipo = "Frailejón";
     } else if(hasPlanta){
@@ -755,13 +698,12 @@
     }
     text("tipoValue", tipo);
 
-    // Story dinámico
     let story = "";
 
     if(adoptante){
-      story += `Este certificado acredita que ${adoptante} ha realizado una adopción ecológica como un gesto de cuidado, vida y restauración para los ecosistemas altoandinos de Colombia. `;
+      story += `Este certificado acredita que ${adoptante} ha realizado una adopción como un gesto de cuidado, vida y restauración para los ecosistemas altoandinos de Colombia. `;
     } else {
-      story += `Este certificado acredita una adopción ecológica como un gesto de cuidado, vida y restauración para los ecosistemas altoandinos de Colombia. `;
+      story += `Este certificado acredita una adopción como un gesto de cuidado, vida y restauración para los ecosistemas altoandinos de Colombia. `;
     }
 
     if(hasFrailejon && hasPlanta){
