@@ -1,644 +1,138 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Certificado de adopción</title>
-  <style>
-    :root{
-      --paper:#eaf2f3;
-      --paper2:#dfeaec;
-      --ink:#111111;
-      --line:#3d4a49;
-      --green:#7c9440;
-      --green2:#6f8d3e;
-      --teal:#5d7f7b;
-      --darkteal:#4e6f6e;
-      --bar:#5e7f80;
-      --gold:#92a73e;
-      --shadow:rgba(0,0,0,.12);
-    }
+<meta charset="UTF-8">
+<title>Certificado</title>
 
-    *{box-sizing:border-box}
+<style>
+  body{
+    margin:0;
+    background:#ccc;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+  }
 
-    html,body{
-      margin:0;
-      padding:0;
-      font-family:Arial, Helvetica, sans-serif;
-      background:linear-gradient(180deg,#e7eeef 0%,#d7e1e2 100%);
-      color:var(--ink);
-    }
+  .sheet{
+    position:relative;
+    width:1200px;
+    height:650px;
+    background:url("fondo.png") no-repeat center;
+    background-size:cover;
+    box-shadow:0 20px 40px rgba(0,0,0,.2);
+  }
 
-    body{
-      padding:18px;
-      min-height:100vh;
-    }
+  /* BOTÓN */
+  .btn{
+    position:absolute;
+    top:15px;
+    right:15px;
+    padding:10px 14px;
+    background:black;
+    color:white;
+    border:none;
+    cursor:pointer;
+    font-size:13px;
+  }
 
-    .topbar{
-      width:min(1180px,100%);
-      margin:0 auto 14px auto;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      flex-wrap:wrap;
-      gap:12px;
-    }
+  /* NOMBRE (línea de "concedido a") */
+  .nombre{
+    position:absolute;
+    top:210px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:34px;
+    font-family:Georgia;
+    font-weight:bold;
+    text-align:center;
+    width:70%;
+  }
 
-    .topbar-note{
-      font-size:13px;
-      color:#2e4142;
-      line-height:1.5;
-    }
+  /* TIPO DE ADOPCIÓN */
+  .tipo{
+    position:absolute;
+    top:300px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:28px;
+    font-weight:bold;
+    text-align:center;
+    width:70%;
+  }
 
-    .btn{
-      appearance:none;
-      border:none;
-      cursor:pointer;
-      padding:12px 18px;
-      border-radius:999px;
-      font-weight:700;
-      font-size:14px;
-      background:#294244;
-      color:#fff;
-    }
+  /* FRAILEJÓN */
+  .frailejon{
+    position:absolute;
+    top:360px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:26px;
+    text-align:center;
+    width:70%;
+  }
 
-    .sheet{
-      width:min(1180px,100%);
-      margin:0 auto;
-      background:
-        radial-gradient(circle at 25% 18%, rgba(255,255,255,.48), transparent 30%),
-        radial-gradient(circle at 84% 14%, rgba(255,255,255,.28), transparent 18%),
-        linear-gradient(180deg, var(--paper) 0%, var(--paper2) 100%);
-      position:relative;
-      box-shadow:0 24px 60px var(--shadow);
-      overflow:hidden;
-      min-height:720px;
-    }
+  /* PLANTA */
+  .planta{
+    position:absolute;
+    top:420px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:26px;
+    text-align:center;
+    width:70%;
+  }
 
-    .paper-noise{
-      position:absolute;
-      inset:0;
-      opacity:.18;
-      background-image:
-        radial-gradient(rgba(0,0,0,.06) 0.7px, transparent 0.7px),
-        radial-gradient(rgba(0,0,0,.04) 1px, transparent 1px);
-      background-size:16px 16px, 28px 28px;
-      background-position:0 0, 8px 10px;
-      pointer-events:none;
-    }
-
-    .frame{
-      position:absolute;
-      inset:14px;
-      border:2px solid rgba(35,47,47,.7);
-      pointer-events:none;
-      z-index:2;
-    }
-
-    .content{
-      position:relative;
-      z-index:3;
-      padding:24px 28px 0 28px;
-      min-height:720px;
-    }
-
-    .topline{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      min-height:54px;
-    }
-
-    .yearbox{
-      border:1.5px solid rgba(50,60,60,.7);
-      padding:4px 14px;
-      font-size:15px;
-      line-height:1.2;
-      color:#2f3d3c;
-      min-width:138px;
-      text-align:center;
-      background:rgba(255,255,255,.18);
-    }
-
-    .logo-wrap{
-      text-align:center;
-      margin-top:-8px;
-    }
-
-    .logo-box{
-      display:inline-block;
-      background:#ffffff;
-      padding:0;
-      border:1px solid rgba(0,0,0,.08);
-    }
-
-    .logo-box img{
-      display:block;
-      width:140px;
-      height:auto;
-    }
-
-    .hero{
-      text-align:center;
-      margin-top:16px;
-      position:relative;
-      z-index:5;
-    }
-
-    .hero-title{
-      font-size:28px;
-      line-height:1.1;
-      font-weight:900;
-      letter-spacing:.3px;
-      margin:0;
-      text-transform:uppercase;
-    }
-
-    .hero-sub{
-      font-size:25px;
-      line-height:1.2;
-      margin-top:2px;
-    }
-
-    .line{
-      width:54%;
-      height:2px;
-      background:#7e8b8b;
-      margin:18px auto 8px auto;
-      opacity:.8;
-    }
-
-    .recipient{
-      text-align:center;
-      font-size:34px;
-      font-family:Georgia, "Times New Roman", serif;
-      font-weight:700;
-      color:#21322f;
-      min-height:42px;
-      margin-top:6px;
-    }
-
-    .meta{
-      margin:18px auto 0 auto;
-      max-width:760px;
-      text-align:center;
-    }
-
-    .meta-row{
-      margin:18px 0;
-    }
-
-    .meta-label{
-      font-size:28px;
-      font-weight:900;
-      margin-bottom:4px;
-    }
-
-    .meta-value{
-      font-size:33px;
-      line-height:1.22;
-      font-family:Georgia, "Times New Roman", serif;
-      color:#21322f;
-      min-height:40px;
-      word-break:break-word;
-      padding:0 20px;
-    }
-
-    .thanks-wrap{
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:92px;
-      text-align:center;
-      z-index:5;
-    }
-
-    .thanks-main{
-      display:inline-block;
-      background:rgba(91,126,126,.95);
-      color:#ffffff;
-      font-weight:700;
-      font-size:19px;
-      line-height:1.35;
-      padding:10px 18px;
-      box-shadow:0 8px 14px rgba(0,0,0,.08);
-    }
-
-    .thanks-sub{
-      display:inline-block;
-      margin-top:8px;
-      background:rgba(133,156,50,.92);
-      color:#ffffff;
-      font-weight:700;
-      font-size:16px;
-      line-height:1.35;
-      padding:10px 16px;
-      max-width:620px;
-      box-shadow:0 8px 14px rgba(0,0,0,.08);
-    }
-
-    /* paisaje inferior */
-    .landscape{
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:0;
-      height:250px;
-      z-index:1;
-      overflow:hidden;
-    }
-
-    .mount1,.mount2,.mount3,.mount4{
-      position:absolute;
-      bottom:0;
-      border-radius:50% 50% 0 0 / 100% 100% 0 0;
-      filter:blur(.2px);
-    }
-
-    .mount1{
-      left:-80px;
-      width:420px;
-      height:120px;
-      background:#95a985;
-      opacity:.9;
-    }
-    .mount2{
-      left:180px;
-      width:420px;
-      height:150px;
-      background:#7b9a8a;
-      opacity:.9;
-    }
-    .mount3{
-      left:470px;
-      width:360px;
-      height:110px;
-      background:#5e8786;
-      opacity:.92;
-    }
-    .mount4{
-      left:760px;
-      width:420px;
-      height:95px;
-      background:#6d8f6c;
-      opacity:.94;
-    }
-
-    /* franjas vegetación */
-    .grass-a,.grass-b{
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:0;
-      height:68px;
-      opacity:.92;
-    }
-
-    .grass-a{
-      background:linear-gradient(180deg, rgba(126,153,83,.0) 0%, rgba(114,145,72,.7) 60%, rgba(97,126,62,.92) 100%);
-    }
-
-    .grass-b{
-      bottom:24px;
-      background:linear-gradient(180deg, rgba(76,108,88,.0) 0%, rgba(76,108,88,.55) 60%, rgba(66,96,79,.74) 100%);
-    }
-
-    /* composiciones laterales */
-    .collage-left, .collage-right{
-      position:absolute;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          rgba(0,0,0,.86) 0px,
-          rgba(0,0,0,.86) 1px,
-          rgba(255,255,255,.18) 1.7px,
-          rgba(255,255,255,.18) 3.9px
-        );
-      filter:grayscale(100%);
-      opacity:.82;
-      z-index:4;
-    }
-
-    .collage-left{
-      width:170px;
-      height:260px;
-      top:0;
-      left:28px;
-      clip-path:polygon(30% 0%, 70% 0%, 84% 18%, 76% 50%, 100% 94%, 70% 100%, 52% 74%, 35% 100%, 8% 94%, 30% 48%, 18% 20%);
-    }
-
-    .collage-right{
-      width:150px;
-      height:240px;
-      right:44px;
-      top:126px;
-      clip-path:polygon(46% 0%, 58% 0%, 62% 20%, 80% 30%, 68% 38%, 84% 54%, 64% 60%, 62% 100%, 40% 100%, 38% 60%, 18% 54%, 34% 38%, 22% 30%, 40% 20%);
-    }
-
-    .plant-badge{
-      position:absolute;
-      top:92px;
-      left:102px;
-      width:120px;
-      height:120px;
-      border-radius:50%;
-      background:
-        radial-gradient(circle at 40% 35%, rgba(255,255,255,.94) 0%, rgba(235,240,214,.96) 40%, rgba(198,210,164,.93) 100%);
-      box-shadow:0 12px 24px rgba(0,0,0,.12);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:6;
-    }
-
-    .succulent{
-      position:relative;
-      width:76px;
-      height:76px;
-    }
-
-    .leaf{
-      position:absolute;
-      width:30px;height:46px;
-      border-radius:60% 60% 40% 40% / 72% 72% 30% 30%;
-      background:linear-gradient(180deg, #e7f0bd 0%, #a8bd6f 70%, #91a85a 100%);
-      box-shadow:inset 0 0 7px rgba(255,255,255,.4);
-      transform-origin:bottom center;
-    }
-
-    .leaf.c{left:24px;top:18px;transform:rotate(0deg)}
-    .leaf.l1{left:7px;top:21px;transform:rotate(-32deg)}
-    .leaf.r1{left:40px;top:21px;transform:rotate(32deg)}
-    .leaf.l2{left:15px;top:8px;transform:rotate(-15deg) scale(.92)}
-    .leaf.r2{left:31px;top:8px;transform:rotate(15deg) scale(.92)}
-    .leaf.l3{left:20px;top:2px;transform:rotate(-6deg) scale(.78)}
-    .leaf.r3{left:28px;top:2px;transform:rotate(6deg) scale(.78)}
-
-    .bird{
-      position:absolute;
-      width:58px;
-      height:24px;
-      z-index:5;
-      opacity:.92;
-    }
-
-    .bird::before,.bird::after{
-      content:"";
-      position:absolute;
-      width:28px;
-      height:16px;
-      border-top:3px solid rgba(0,0,0,.8);
-      border-radius:60% 60% 0 0;
-    }
-
-    .bird::before{left:0;transform:rotate(10deg)}
-    .bird::after{right:0;transform:rotate(-10deg)}
-    .bird.b1{right:104px;top:106px;transform:scale(.85)}
-    .bird.b2{right:380px;top:302px;transform:scale(.65)}
-
-    /* pequeños cactus/frailejones */
-    .frai{
-      position:absolute;
-      background:rgba(0,0,0,.8);
-      z-index:4;
-    }
-
-    .frai.a{left:18px;bottom:54px;width:18px;height:120px;clip-path:polygon(45% 0%,55% 0%,60% 20%,82% 30%,66% 40%,80% 54%,58% 60%,56% 100%,44% 100%,42% 60%,20% 54%,34% 40%,18% 30%,40% 20%)}
-    .frai.b{left:54px;bottom:70px;width:24px;height:144px;clip-path:polygon(45% 0%,55% 0%,60% 20%,82% 30%,66% 40%,80% 54%,58% 60%,56% 100%,44% 100%,42% 60%,20% 54%,34% 40%,18% 30%,40% 20%)}
-    .frai.c{right:24px;bottom:130px;width:22px;height:138px;clip-path:polygon(45% 0%,55% 0%,60% 20%,82% 30%,66% 40%,80% 54%,58% 60%,56% 100%,44% 100%,42% 60%,20% 54%,34% 40%,18% 30%,40% 20%)}
-    .frai.d{right:64px;bottom:92px;width:18px;height:116px;clip-path:polygon(45% 0%,55% 0%,60% 20%,82% 30%,66% 40%,80% 54%,58% 60%,56% 100%,44% 100%,42% 60%,20% 54%,34% 40%,18% 30%,40% 20%)}
-
-    .hidden{display:none !important}
-
-    @page{
-      size: letter landscape;
-      margin: 10mm;
-    }
-
-    @media print{
-      html, body{
-        width:279.4mm;
-        height:215.9mm;
-        background:#fff !important;
-        margin:0;
-        padding:0;
-      }
-
-      .topbar{
-        display:none !important;
-      }
-
-      .sheet{
-        width:100% !important;
-        box-shadow:none !important;
-        border:none !important;
-        margin:0 !important;
-      }
-
-      .frame{
-        inset:10px;
-      }
-    }
-
-    @media (max-width:900px){
-      body{padding:8px}
-      .content{padding:18px 14px 0 14px}
-      .title-main{font-size:42px}
-      .title-sub{font-size:18px}
-      .recipient{font-size:22px}
-      .body{font-size:18px}
-      .meta-row{
-        display:block;
-      }
-      .meta-label{
-        min-width:auto;
-        margin-bottom:4px;
-      }
-      .thanks-main{font-size:16px}
-      .thanks-sub{font-size:14px}
-    }
-  </style>
+</style>
 </head>
+
 <body>
-  <div class="topbar">
-    <div class="topbar-note">
-      Certificado de adopción. Puedes imprimirlo o guardarlo como PDF.
-    </div>
-    <button class="btn" onclick="window.print()">Descargar / Guardar PDF</button>
-  </div>
 
-  <section class="sheet">
-    <div class="paper-noise"></div>
-    <div class="frame"></div>
+<div class="sheet">
 
-    <div class="content">
-      <div class="topline">
-        <div></div>
+  <button class="btn" onclick="window.print()">Descargar PDF</button>
 
-        <div class="logo-wrap">
-          <div class="logo-box">
-            <!-- Reemplaza por el logo real si quieres -->
-            <img src="https://via.placeholder.com/140x48/111111/ffffff?text=CUMBRES+BLANCAS" alt="Cumbres Blancas">
-          </div>
-        </div>
+  <div class="nombre" id="nombre">Adoptante</div>
+  <div class="tipo" id="tipo">Adopción</div>
+  <div class="frailejon" id="frailejon"></div>
+  <div class="planta" id="planta"></div>
 
-        <div class="yearbox">COLOMBIA, 2026</div>
-      </div>
+</div>
 
-      <div class="hero">
-        <h1 class="hero-title">CERTIFICADO DE ADOPCIÓN</h1>
-        <div class="hero-sub">concedido a:</div>
-        <div class="line"></div>
-        <div class="recipient" id="recipientName">Adoptante</div>
-      </div>
+<script>
+  function qs(n){
+    const p = new URLSearchParams(window.location.search);
+    return p.get(n) || "";
+  }
 
-      <div class="meta">
-        <div class="meta-row" id="tipoRow">
-          <div class="meta-label">Tipo de adopción:</div>
-          <div class="meta-value" id="tipoValue">Adopción</div>
-        </div>
+  const nombre = qs("nombre");
+  const frailejon = qs("frailejon");
+  const planta = qs("planta");
 
-        <div class="meta-row hidden" id="adopcionRow">
-          <div class="meta-label">Nombre de adopción:</div>
-          <div class="meta-value" id="adopcionValue">—</div>
-        </div>
+  if(nombre && !nombre.includes("{{")){
+    document.getElementById("nombre").textContent = nombre;
+  }
 
-        <div class="meta-row" id="frailejonRow">
-          <div class="meta-label">Nombre del frailejón:</div>
-          <div class="meta-value" id="frailejonValue">—</div>
-        </div>
+  if(frailejon && !frailejon.includes("{{")){
+    document.getElementById("frailejon").textContent = frailejon;
+  }
 
-        <div class="meta-row" id="plantaRow">
-          <div class="meta-label">Nombre de la plántula:</div>
-          <div class="meta-value" id="plantaValue">—</div>
-        </div>
-      </div>
+  if(planta && !planta.includes("{{")){
+    document.getElementById("planta").textContent = planta;
+  }
 
-      <div class="thanks-wrap">
-        <div class="thanks-main">
-          Cumbres Blancas Colombia agradece tu apoyo en este sueño.
-        </div>
-        <br>
-        <div class="thanks-sub" id="storyText">
-          ¡Gracias por ayudarnos a restaurar y proteger los páramos y ecosistemas claves de Colombia!
-        </div>
-      </div>
-    </div>
+  let tipo = "Adopción";
 
-    <div class="collage-left"></div>
-    <div class="collage-right"></div>
+  if(frailejon && planta){
+    tipo = "Combo";
+  } else if(frailejon){
+    tipo = "Frailejón";
+  } else if(planta){
+    tipo = "Planta nativa";
+  }
 
-    <div class="plant-badge">
-      <div class="succulent">
-        <div class="leaf c"></div>
-        <div class="leaf l1"></div>
-        <div class="leaf r1"></div>
-        <div class="leaf l2"></div>
-        <div class="leaf r2"></div>
-        <div class="leaf l3"></div>
-        <div class="leaf r3"></div>
-      </div>
-    </div>
+  document.getElementById("tipo").textContent = tipo;
+</script>
 
-    <div class="bird b1"></div>
-    <div class="bird b2"></div>
-
-    <div class="frai a"></div>
-    <div class="frai b"></div>
-    <div class="frai c"></div>
-    <div class="frai d"></div>
-
-    <div class="landscape">
-      <div class="mount1"></div>
-      <div class="mount2"></div>
-      <div class="mount3"></div>
-      <div class="mount4"></div>
-      <div class="grass-b"></div>
-      <div class="grass-a"></div>
-    </div>
-  </section>
-
-  <script>
-    function normalize(value){
-      if(!value) return "";
-      const v = String(value).trim();
-      if(v === "-" || v.toLowerCase() === "null" || v.toLowerCase() === "undefined") return "";
-      return decodeURIComponent(v.replace(/\+/g, " "));
-    }
-
-    function qs(name){
-      const params = new URLSearchParams(window.location.search);
-      return normalize(params.get(name));
-    }
-
-    function hide(id){
-      const el = document.getElementById(id);
-      if(el) el.classList.add("hidden");
-    }
-
-    function text(id, value){
-      const el = document.getElementById(id);
-      if(el) el.textContent = value;
-    }
-
-    const adoptante = qs("nombre") || qs("adoptante") || qs("persona");
-    const frailejon = qs("frailejon");
-    const planta = qs("planta");
-    const adopcion = qs("adopcion");
-
-    const hasAdoptante = adoptante !== "" && !adoptante.includes("{{");
-    const hasFrailejon = frailejon !== "" && !frailejon.includes("{{");
-    const hasPlanta = planta !== "" && !planta.includes("{{");
-    const hasAdopcion = adopcion !== "" && !adopcion.includes("{{");
-
-    if(hasAdoptante){
-      text("recipientName", adoptante);
-    } else {
-      text("recipientName", "Adoptante");
-    }
-
-    if(hasFrailejon){
-      text("frailejonValue", frailejon);
-    } else {
-      hide("frailejonRow");
-    }
-
-    if(hasPlanta){
-      text("plantaValue", planta);
-    } else {
-      hide("plantaRow");
-    }
-
-    if(hasAdopcion){
-      text("adopcionValue", adopcion);
-      document.getElementById("adopcionRow").classList.remove("hidden");
-    }
-
-    let tipo = "Adopción";
-    if(hasFrailejon && hasPlanta){
-      tipo = "Combo";
-    } else if(hasFrailejon){
-      tipo = "Frailejón";
-    } else if(hasPlanta){
-      tipo = "Planta nativa";
-    } else if(hasAdopcion){
-      tipo = adopcion;
-    }
-    text("tipoValue", tipo);
-
-    let story = "¡Gracias por ayudarnos a restaurar y proteger los páramos y ecosistemas claves de Colombia!";
-
-    if(hasFrailejon && hasPlanta){
-      story = `La adopción incluye el frailejón “${frailejon}” y la plántula “${planta}”. ¡Gracias por ayudarnos a restaurar y proteger los páramos y ecosistemas claves de Colombia!`;
-    } else if(hasFrailejon){
-      story = `La adopción incluye el frailejón “${frailejon}”. ¡Gracias por ayudarnos a restaurar y proteger los páramos y ecosistemas claves de Colombia!`;
-    } else if(hasPlanta){
-      story = `La adopción incluye la plántula “${planta}”. ¡Gracias por ayudarnos a restaurar y proteger los páramos y ecosistemas claves de Colombia!`;
-    } else if(hasAdopcion){
-      story = `Esta adopción corresponde a “${adopcion}”. ¡Gracias por ayudarnos a restaurar y proteger los páramos y ecosistemas claves de Colombia!`;
-    }
-
-    text("storyText", story);
-  </script>
 </body>
 </html>
