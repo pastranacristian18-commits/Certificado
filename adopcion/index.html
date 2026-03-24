@@ -2,136 +2,221 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Certificado</title>
 
 <style>
-  body{
+  html, body{
     margin:0;
-    background:#ccc;
+    padding:0;
+    background:#d9d9d9;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+
+  body{
+    min-height:100vh;
     display:flex;
-    justify-content:center;
+    flex-direction:column;
     align-items:center;
-    height:100vh;
+    justify-content:flex-start;
+    padding:18px;
+  }
+
+  .topbar{
+    width:min(1200px,100%);
+    margin:0 auto 12px auto;
+    display:flex;
+    justify-content:flex-end;
+  }
+
+  .btn{
+    appearance:none;
+    border:none;
+    background:#111;
+    color:#fff;
+    cursor:pointer;
+    padding:12px 18px;
+    border-radius:999px;
+    font-size:14px;
+    font-weight:700;
   }
 
   .sheet{
     position:relative;
-    width:1200px;
-    height:650px;
-    background:url("fondo.png") no-repeat center;
-    background-size:cover;
-    box-shadow:0 20px 40px rgba(0,0,0,.2);
+    width:min(1200px,100%);
+    aspect-ratio: 1536 / 942;
+    box-shadow:0 20px 40px rgba(0,0,0,.18);
+    overflow:hidden;
+    background:#eef3f3;
   }
 
-  /* BOTÓN */
-  .btn{
+  .bg{
     position:absolute;
-    top:15px;
-    right:15px;
-    padding:10px 14px;
-    background:black;
-    color:white;
-    border:none;
-    cursor:pointer;
-    font-size:13px;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:1;
+    user-select:none;
+    pointer-events:none;
   }
 
-  /* NOMBRE (línea de "concedido a") */
-  .nombre{
+  .layer{
     position:absolute;
-    top:210px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:34px;
-    font-family:Georgia;
-    font-weight:bold;
-    text-align:center;
-    width:70%;
+    inset:0;
+    z-index:2;
   }
 
-  /* TIPO DE ADOPCIÓN */
-  .tipo{
-    position:absolute;
-    top:300px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:28px;
-    font-weight:bold;
-    text-align:center;
-    width:70%;
-  }
-
-  /* FRAILEJÓN */
-  .frailejon{
-    position:absolute;
-    top:360px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:26px;
-    text-align:center;
-    width:70%;
-  }
-
-  /* PLANTA */
+  .nombre,
+  .tipo,
+  .frailejon,
   .planta{
     position:absolute;
-    top:420px;
     left:50%;
     transform:translateX(-50%);
-    font-size:26px;
+    width:72%;
     text-align:center;
-    width:70%;
+    color:#111;
+    word-break:break-word;
   }
 
+  .nombre{
+    top:24.5%;
+    font-size:2.15rem;
+    line-height:1.2;
+    font-family:Georgia, "Times New Roman", serif;
+    font-weight:700;
+  }
+
+  .tipo{
+    top:43.2%;
+    font-size:2.05rem;
+    line-height:1.2;
+    font-weight:800;
+  }
+
+  .frailejon{
+    top:56.1%;
+    font-size:1.9rem;
+    line-height:1.25;
+    font-family:Georgia, "Times New Roman", serif;
+    font-weight:700;
+  }
+
+  .planta{
+    top:67.2%;
+    font-size:1.9rem;
+    line-height:1.25;
+    font-family:Georgia, "Times New Roman", serif;
+    font-weight:700;
+  }
+
+  .hidden{
+    display:none !important;
+  }
+
+  @page{
+    size: letter landscape;
+    margin: 0;
+  }
+
+  @media print{
+    html, body{
+      width:100%;
+      height:100%;
+      background:#fff !important;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      display:block;
+    }
+
+    .topbar{
+      display:none !important;
+    }
+
+    .sheet{
+      width:100vw;
+      height:auto;
+      box-shadow:none;
+      margin:0;
+    }
+  }
+
+  @media (max-width: 900px){
+    .nombre{ font-size:1.45rem; }
+    .tipo{ font-size:1.35rem; }
+    .frailejon,.planta{ font-size:1.2rem; }
+  }
 </style>
 </head>
-
 <body>
 
+<div class="topbar">
+  <button class="btn" onclick="window.print()">Descargar / Guardar PDF</button>
+</div>
+
 <div class="sheet">
+  <img class="bg" src="fondo.png" alt="Certificado de adopción">
 
-  <button class="btn" onclick="window.print()">Descargar PDF</button>
-
-  <div class="nombre" id="nombre">Adoptante</div>
-  <div class="tipo" id="tipo">Adopción</div>
-  <div class="frailejon" id="frailejon"></div>
-  <div class="planta" id="planta"></div>
-
+  <div class="layer">
+    <div class="nombre" id="nombre">Adoptante</div>
+    <div class="tipo" id="tipo">Adopción</div>
+    <div class="frailejon" id="frailejon"></div>
+    <div class="planta" id="planta"></div>
+  </div>
 </div>
 
 <script>
-  function qs(n){
-    const p = new URLSearchParams(window.location.search);
-    return p.get(n) || "";
+  function qs(name){
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name) || "";
   }
 
-  const nombre = qs("nombre");
-  const frailejon = qs("frailejon");
-  const planta = qs("planta");
-
-  if(nombre && !nombre.includes("{{")){
-    document.getElementById("nombre").textContent = nombre;
+  function clean(value){
+    const v = String(value || "").trim();
+    if (!v) return "";
+    if (v.includes("{{")) return "";
+    return decodeURIComponent(v.replace(/\+/g, " "));
   }
 
-  if(frailejon && !frailejon.includes("{{")){
-    document.getElementById("frailejon").textContent = frailejon;
+  const nombre = clean(qs("nombre"));
+  const frailejon = clean(qs("frailejon"));
+  const planta = clean(qs("planta"));
+
+  const nombreEl = document.getElementById("nombre");
+  const tipoEl = document.getElementById("tipo");
+  const frailejonEl = document.getElementById("frailejon");
+  const plantaEl = document.getElementById("planta");
+
+  if (nombre) {
+    nombreEl.textContent = nombre;
   }
 
-  if(planta && !planta.includes("{{")){
-    document.getElementById("planta").textContent = planta;
+  if (frailejon) {
+    frailejonEl.textContent = frailejon;
+  } else {
+    frailejonEl.classList.add("hidden");
+  }
+
+  if (planta) {
+    plantaEl.textContent = planta;
+  } else {
+    plantaEl.classList.add("hidden");
   }
 
   let tipo = "Adopción";
-
-  if(frailejon && planta){
+  if (frailejon && planta) {
     tipo = "Combo";
-  } else if(frailejon){
+  } else if (frailejon) {
     tipo = "Frailejón";
-  } else if(planta){
+  } else if (planta) {
     tipo = "Planta nativa";
   }
 
-  document.getElementById("tipo").textContent = tipo;
+  tipoEl.textContent = tipo;
 </script>
 
 </body>
