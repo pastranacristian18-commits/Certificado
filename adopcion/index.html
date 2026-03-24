@@ -67,10 +67,9 @@
     z-index:2;
   }
 
-  .nombre,
+  .adoptante,
   .tipo,
-  .frailejon,
-  .planta{
+  .plantula{
     position:absolute;
     left:50%;
     transform:translateX(-50%);
@@ -80,33 +79,28 @@
     word-break:break-word;
   }
 
-  .nombre{
-    top:24.5%;
+  /* concedido a: */
+  .adoptante{
+    top:24.3%;
     font-size:2.15rem;
-    line-height:1.2;
+    line-height:1.15;
     font-family:Georgia, "Times New Roman", serif;
     font-weight:700;
   }
 
+  /* tipo de adopción */
   .tipo{
-    top:43.2%;
+    top:43.7%;
     font-size:2.05rem;
     line-height:1.2;
     font-weight:800;
   }
 
-  .frailejon{
-    top:56.1%;
-    font-size:1.9rem;
-    line-height:1.25;
-    font-family:Georgia, "Times New Roman", serif;
-    font-weight:700;
-  }
-
-  .planta{
-    top:67.2%;
-    font-size:1.9rem;
-    line-height:1.25;
+  /* nombre de la plántula */
+  .plantula{
+    top:57.2%;
+    font-size:2.0rem;
+    line-height:1.22;
     font-family:Georgia, "Times New Roman", serif;
     font-weight:700;
   }
@@ -146,9 +140,9 @@
   }
 
   @media (max-width: 900px){
-    .nombre{ font-size:1.45rem; }
+    .adoptante{ font-size:1.45rem; }
     .tipo{ font-size:1.35rem; }
-    .frailejon,.planta{ font-size:1.2rem; }
+    .plantula{ font-size:1.2rem; }
   }
 </style>
 </head>
@@ -162,10 +156,9 @@
   <img class="bg" src="fondo.png" alt="Certificado de adopción">
 
   <div class="layer">
-    <div class="nombre" id="nombre">Adoptante</div>
+    <div class="adoptante" id="adoptante">Adoptante</div>
     <div class="tipo" id="tipo">Adopción</div>
-    <div class="frailejon" id="frailejon"></div>
-    <div class="planta" id="planta"></div>
+    <div class="plantula" id="plantula">Nombre de la plántula</div>
   </div>
 </div>
 
@@ -182,41 +175,39 @@
     return decodeURIComponent(v.replace(/\+/g, " "));
   }
 
-  const nombre = clean(qs("nombre"));
-  const frailejon = clean(qs("frailejon"));
-  const planta = clean(qs("planta"));
+  const nombre    = clean(qs("nombre"));     // adoptante
+  const frailejon = clean(qs("frailejon"));  // si existe, eligió frailejón
+  const planta    = clean(qs("planta"));     // si existe, eligió planta nativa
+  const adopcion  = clean(qs("adopcion"));   // nombre que le puso a su adopción
 
-  const nombreEl = document.getElementById("nombre");
-  const tipoEl = document.getElementById("tipo");
-  const frailejonEl = document.getElementById("frailejon");
-  const plantaEl = document.getElementById("planta");
+  const adoptanteEl = document.getElementById("adoptante");
+  const tipoEl      = document.getElementById("tipo");
+  const plantulaEl  = document.getElementById("plantula");
 
+  // Adoptante
   if (nombre) {
-    nombreEl.textContent = nombre;
-  }
-
-  if (frailejon) {
-    frailejonEl.textContent = frailejon;
+    adoptanteEl.textContent = nombre;
   } else {
-    frailejonEl.classList.add("hidden");
+    adoptanteEl.textContent = "Adoptante";
   }
 
-  if (planta) {
-    plantaEl.textContent = planta;
-  } else {
-    plantaEl.classList.add("hidden");
-  }
-
+  // Tipo de adopción
   let tipo = "Adopción";
   if (frailejon && planta) {
-    tipo = "Combo";
+    tipo = "Frailejón y planta nativa";
   } else if (frailejon) {
     tipo = "Frailejón";
   } else if (planta) {
     tipo = "Planta nativa";
   }
-
   tipoEl.textContent = tipo;
+
+  // Nombre de la plántula = nombre que puso a la adopción
+  if (adopcion) {
+    plantulaEl.textContent = adopcion;
+  } else {
+    plantulaEl.textContent = "Nombre de la plántula";
+  }
 </script>
 
 </body>
