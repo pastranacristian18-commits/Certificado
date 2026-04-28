@@ -1,744 +1,168 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Certificado de regalo</title>
-  <style>
-    :root{
-      --paper:#f4f1ea;
-      --paper-2:#eeece4;
-      --ink:#111111;
-      --muted:#374038;
-      --olive:#879a45;
-      --teal:#557b78;
-      --line:#8ea067;
-      --shadow:rgba(14,22,14,.14);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificado de regalo</title>
+
+<style>
+  html, body{
+    margin:0;
+    padding:0;
+    background:#d9d9d9;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+
+  body{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:18px;
+  }
+
+  .topbar{
+    width:min(1200px,100%);
+    margin-bottom:10px;
+    display:flex;
+    justify-content:flex-end;
+  }
+
+  .btn{
+    border:none;
+    background:#111;
+    color:#fff;
+    cursor:pointer;
+    padding:12px 18px;
+    border-radius:999px;
+    font-weight:bold;
+  }
+
+  .sheet{
+    position:relative;
+    width:min(1200px,100%);
+    aspect-ratio:1536/942;
+    overflow:hidden;
+    box-shadow:0 20px 40px rgba(0,0,0,.2);
+  }
+
+  .bg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+
+  .layer{
+    position:absolute;
+    inset:0;
+  }
+
+  .para{
+    position:absolute;
+    top:24%;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:2.1rem;
+    font-family:Georgia;
+    font-weight:bold;
+    text-align:center;
+    width:70%;
+  }
+
+  .de{
+    position:absolute;
+    top:32%;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:1.5rem;
+    text-align:center;
+    width:70%;
+  }
+
+  .tipo{
+    position:absolute;
+    top:45%;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:2rem;
+    font-weight:bold;
+    text-align:center;
+    width:70%;
+  }
+
+  .plantula{
+    position:absolute;
+    top:60%;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:1.9rem;
+    font-family:Georgia;
+    text-align:center;
+    width:70%;
+  }
 
-    *{box-sizing:border-box}
-
-    html,body{
-      margin:0;
-      padding:0;
-      background:
-        radial-gradient(circle at 15% 15%, rgba(135,154,69,.10), transparent 16%),
-        radial-gradient(circle at 85% 25%, rgba(85,123,120,.09), transparent 18%),
-        linear-gradient(180deg, #e8ece6 0%, #dde3db 100%);
-      color:var(--ink);
-      font-family:Arial, Helvetica, sans-serif;
-    }
-
-    body{
-      min-height:100vh;
-      padding:20px;
-    }
-
-    .topbar{
-      width:min(1120px,100%);
-      margin:0 auto 14px auto;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .topbar-note{
-      font-size:13px;
-      color:#314139;
-      line-height:1.5;
-    }
-
-    .actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      appearance:none;
-      border:none;
-      cursor:pointer;
-      padding:12px 18px;
-      border-radius:999px;
-      font-weight:700;
-      font-size:14px;
-      transition:transform .15s ease;
-      background:#233a31;
-      color:#fff;
-    }
-
-    .btn:hover{
-      transform:translateY(-1px);
-    }
-
-    .sheet{
-      position:relative;
-      width:min(1120px,100%);
-      margin:0 auto;
-      background:
-        radial-gradient(circle at 18% 78%, rgba(135,154,69,.12), transparent 18%),
-        radial-gradient(circle at 85% 28%, rgba(85,123,120,.10), transparent 20%),
-        linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
-      overflow:hidden;
-      box-shadow:0 24px 60px var(--shadow);
-      border:1px solid rgba(0,0,0,.05);
-      min-height:700px;
-    }
-
-    .sheet::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      opacity:.22;
-      background-image:
-        radial-gradient(rgba(0,0,0,.03) 0.8px, transparent 0.8px),
-        radial-gradient(rgba(0,0,0,.02) 1px, transparent 1px);
-      background-size:18px 18px, 26px 26px;
-      background-position:0 0, 9px 11px;
-      pointer-events:none;
-    }
-
-    .wash{
-      position:absolute;
-      border-radius:50%;
-      filter:blur(18px);
-      opacity:.45;
-      pointer-events:none;
-    }
-
-    .wash.w1{
-      width:420px;height:190px;left:-70px;bottom:52px;
-      background:radial-gradient(circle, rgba(154,181,137,.95) 0%, rgba(154,181,137,.38) 55%, rgba(154,181,137,0) 100%);
-      transform:rotate(-8deg);
-    }
-    .wash.w2{
-      width:380px;height:160px;left:210px;bottom:34px;
-      background:radial-gradient(circle, rgba(96,131,110,.68) 0%, rgba(96,131,110,.22) 60%, rgba(96,131,110,0) 100%);
-      transform:rotate(7deg);
-    }
-    .wash.w3{
-      width:260px;height:150px;right:120px;top:110px;
-      background:radial-gradient(circle, rgba(189,202,171,.76) 0%, rgba(189,202,171,.18) 60%, rgba(189,202,171,0) 100%);
-    }
-
-    .inner{
-      position:relative;
-      z-index:2;
-      display:grid;
-      grid-template-columns:44% 56%;
-      min-height:700px;
-    }
-
-    .left{
-      padding:34px 28px 28px 34px;
-      display:flex;
-      flex-direction:column;
-      position:relative;
-    }
-
-    .right{
-      position:relative;
-      padding:34px 34px 28px 10px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-
-    .topline{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:18px;
-      margin-bottom:12px;
-    }
-
-    .brandbox{
-      display:inline-flex;
-      flex-direction:column;
-      gap:4px;
-      padding:10px 12px;
-      border:1px solid rgba(60,76,60,.25);
-      background:rgba(255,255,255,.2);
-      min-width:164px;
-    }
-
-    .brandbox strong{
-      font-size:13px;
-      letter-spacing:1.4px;
-      color:#53674d;
-    }
-
-    .brandbox span{
-      font-size:11px;
-      color:#53674d;
-      letter-spacing:1px;
-      text-transform:uppercase;
-    }
-
-    .official{
-      text-align:right;
-      font-size:11px;
-      line-height:1.55;
-      color:#38423b;
-      text-transform:uppercase;
-      letter-spacing:1.4px;
-      font-weight:700;
-      max-width:190px;
-    }
-
-    .hero{
-      margin-top:8px;
-      max-width:480px;
-      line-height:.92;
-      letter-spacing:-1.2px;
-    }
-
-    .hero .black{
-      display:block;
-      font-weight:900;
-      color:#101010;
-      font-size:clamp(38px, 4.4vw, 64px);
-      font-family:Arial, Helvetica, sans-serif;
-    }
-
-    .hero .green1,
-    .hero .green2{
-      display:block;
-      font-family:Georgia, "Times New Roman", serif;
-      font-weight:800;
-    }
-
-    .hero .green1{
-      color:var(--olive);
-      font-size:clamp(56px, 4.8vw, 84px);
-    }
-
-    .hero .green2{
-      color:var(--teal);
-      font-size:clamp(46px, 4vw, 72px);
-    }
-
-    .subtext{
-      margin-top:24px;
-      max-width:420px;
-      font-size:21px;
-      line-height:1.36;
-      color:#222b24;
-    }
-
-    .subtext strong{ font-weight:900; }
-
-    .certificate{
-      width:100%;
-      background:rgba(255,255,255,.58);
-      border-left:6px solid var(--line);
-      padding:26px 28px 24px;
-      box-shadow:0 10px 24px rgba(0,0,0,.05);
-      position:relative;
-    }
-
-    .kicker{
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:1.8px;
-      font-weight:800;
-      color:#4b5f52;
-      margin-bottom:10px;
-    }
-
-    .title{
-      margin:0 0 12px 0;
-      font-size:40px;
-      line-height:1.02;
-      font-family:Georgia, "Times New Roman", serif;
-      font-weight:700;
-      color:#18221b;
-    }
-
-    .lead{
-      margin:0 0 20px 0;
-      font-size:15px;
-      line-height:1.7;
-      color:#445046;
-      max-width:100%;
-    }
-
-    .meta{
-      display:grid;
-      gap:10px;
-    }
-
-    .row{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      flex-wrap:wrap;
-      font-size:18px;
-      line-height:1.45;
-      color:#1e2520;
-    }
-
-    .label{
-      min-width:170px;
-      color:#4c6852;
-      font-weight:800;
-    }
-
-    .value{
-      flex:1;
-      min-width:220px;
-      word-break:break-word;
-    }
-
-    .story{
-      margin-top:20px;
-      padding:16px 18px;
-      background:rgba(247,249,242,.95);
-      font-size:16px;
-      line-height:1.7;
-      color:#334038;
-      border-radius:10px;
-    }
-
-    .story strong{
-      color:#274236;
-    }
-
-    .side-note{
-      position:absolute;
-      top:46px;
-      right:26px;
-      writing-mode:vertical-rl;
-      transform:rotate(180deg);
-      font-size:12px;
-      letter-spacing:1.7px;
-      font-weight:800;
-      color:#303830;
-      text-transform:uppercase;
-      z-index:6;
-    }
-
-    .collage{
-      position:absolute;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          rgba(0,0,0,.86) 0px,
-          rgba(0,0,0,.86) 1px,
-          rgba(255,255,255,.18) 1.7px,
-          rgba(255,255,255,.18) 3.9px
-        );
-      filter:grayscale(100%);
-      opacity:.82;
-      z-index:2;
-    }
-
-    .collage.top{
-      width:210px;height:300px;right:118px;top:-4px;
-      clip-path:polygon(32% 0%, 70% 0%, 88% 18%, 79% 52%, 100% 92%, 73% 100%, 54% 76%, 36% 100%, 10% 92%, 31% 50%, 18% 18%);
-      transform:rotate(4deg);
-    }
-
-    .collage.bottom{
-      width:228px;height:320px;right:36px;bottom:-24px;
-      clip-path:polygon(23% 0%, 48% 9%, 68% 0%, 95% 16%, 80% 46%, 100% 100%, 70% 92%, 54% 64%, 35% 95%, 8% 100%, 28% 46%, 0% 14%);
-      transform:rotate(-16deg);
-    }
-
-    .plant-badge{
-      position:absolute;
-      top:118px;
-      right:140px;
-      width:118px;
-      height:118px;
-      border-radius:50%;
-      background:
-        radial-gradient(circle at 40% 35%, rgba(255,255,255,.94) 0%, rgba(235,240,214,.96) 40%, rgba(198,210,164,.93) 100%);
-      box-shadow:0 12px 24px rgba(0,0,0,.12);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:5;
-    }
-
-    .succulent{
-      position:relative;
-      width:76px;
-      height:76px;
-    }
-
-    .leaf{
-      position:absolute;
-      width:30px;height:46px;
-      border-radius:60% 60% 40% 40% / 72% 72% 30% 30%;
-      background:linear-gradient(180deg, #e7f0bd 0%, #a8bd6f 70%, #91a85a 100%);
-      box-shadow:inset 0 0 7px rgba(255,255,255,.4);
-      transform-origin:bottom center;
-    }
-
-    .leaf.c{left:24px;top:18px;transform:rotate(0deg)}
-    .leaf.l1{left:7px;top:21px;transform:rotate(-32deg)}
-    .leaf.r1{left:40px;top:21px;transform:rotate(32deg)}
-    .leaf.l2{left:15px;top:8px;transform:rotate(-15deg) scale(.92)}
-    .leaf.r2{left:31px;top:8px;transform:rotate(15deg) scale(.92)}
-    .leaf.l3{left:20px;top:2px;transform:rotate(-6deg) scale(.78)}
-    .leaf.r3{left:28px;top:2px;transform:rotate(6deg) scale(.78)}
-
-    .bird{
-      position:absolute;
-      width:62px;height:26px;z-index:5;opacity:.92;
-    }
-
-    .bird::before,.bird::after{
-      content:"";
-      position:absolute;
-      width:30px;height:18px;
-      border-top:3px solid rgba(0,0,0,.8);
-      border-radius:60% 60% 0 0;
-    }
-
-    .bird::before{left:0;transform:rotate(10deg)}
-    .bird::after{right:0;transform:rotate(-10deg)}
-    .bird.b1{top:200px;right:22px;transform:scale(.72) rotate(-10deg)}
-    .bird.b2{top:88px;right:10px;transform:scale(.94) rotate(4deg)}
-
-    .landscape{
-      position:absolute;
-      left:0;right:0;bottom:0;
-      height:220px;
-      z-index:1;
-    }
-
-    .mount{
-      position:absolute;
-      bottom:0;
-      border-radius:52% 48% 0 0 / 100% 100% 0 0;
-    }
-
-    .mount.m1{left:-60px;width:420px;height:88px;background:#9eb08c}
-    .mount.m2{left:160px;width:360px;height:118px;background:#8ea381}
-    .mount.m3{left:320px;width:340px;height:72px;background:#678360}
-
-    .creatures{
-      position:absolute;
-      left:68px;
-      bottom:50px;
-      width:280px;
-      height:120px;
-      z-index:3;
-      opacity:.95;
-    }
-
-    .creature{
-      position:absolute;
-      background:rgba(0,0,0,.82);
-    }
-
-    .llama{
-      left:46px;bottom:0;width:66px;height:56px;
-      clip-path:polygon(22% 26%, 60% 26%, 70% 10%, 78% 17%, 70% 30%, 82% 52%, 79% 92%, 67% 92%, 65% 58%, 56% 58%, 54% 92%, 42% 92%, 42% 56%, 25% 54%, 16% 92%, 5% 92%, 10% 50%, 13% 32%);
-    }
-
-    .tree1,.tree2,.tree3{
-      clip-path:polygon(45% 0%, 57% 0%, 62% 20%, 80% 30%, 68% 38%, 84% 54%, 64% 60%, 62% 100%, 40% 100%, 38% 60%, 18% 54%, 34% 38%, 22% 30%, 40% 20%);
-    }
-
-    .tree1{left:126px;bottom:20px;width:22px;height:76px}
-    .tree2{left:168px;bottom:14px;width:18px;height:70px}
-    .tree3{left:198px;bottom:20px;width:16px;height:62px}
-
-    .hidden{display:none !important}
-
-    @page{
-      size: letter landscape;
-      margin: 10mm;
-    }
-
-    @media print{
-      html, body{
-        width:279.4mm;
-        height:215.9mm;
-        background:#fff !important;
-        margin:0;
-        padding:0;
-      }
-
-      body{
-        display:block;
-      }
-
-      .topbar{
-        display:none !important;
-      }
-
-      .sheet{
-        width:100% !important;
-        min-height:auto !important;
-        box-shadow:none !important;
-        border:none !important;
-        margin:0 auto !important;
-      }
-
-      .inner{
-        min-height:auto !important;
-      }
-
-      .wash{
-        opacity:.35;
-      }
-    }
-
-    @media (max-width:980px){
-      body{padding:12px}
-      .inner{
-        grid-template-columns:1fr;
-      }
-      .right{
-        min-height:320px;
-        padding:10px 22px 24px 22px;
-      }
-      .left{
-        padding:28px 22px 16px 22px;
-      }
-      .hero .black{font-size:44px}
-      .hero .green1,.hero .green2{font-size:66px}
-      .subtext{font-size:19px}
-      .topline{gap:10px}
-      .brandbox{min-width:auto}
-      .plant-badge{top:92px;right:122px}
-      .side-note{display:none}
-      .certificate{padding:22px}
-    }
-  </style>
+</style>
 </head>
+
 <body>
-  <div class="topbar">
-    <div class="topbar-note">
-      Certificado de regalo. Puedes imprimirlo o guardarlo como PDF.
-    </div>
-    <div class="actions">
-      <button class="btn" onclick="window.print()">Descargar / Guardar PDF</button>
-    </div>
+
+<div class="topbar">
+  <button class="btn" onclick="window.print()">Descargar PDF</button>
+</div>
+
+<div class="sheet">
+  <img class="bg" src="fondo.png">
+
+  <div class="layer">
+    <div class="para" id="para">Para: —</div>
+    <div class="de" id="de">De: —</div>
+    <div class="tipo" id="tipo">Adopción</div>
+    <div class="plantula" id="plantula"></div>
   </div>
+</div>
 
-  <section class="sheet">
-    <div class="wash w1"></div>
-    <div class="wash w2"></div>
-    <div class="wash w3"></div>
+<script>
+function qs(n){
+  return new URLSearchParams(window.location.search).get(n) || "";
+}
 
-    <div class="inner">
-      <div class="left">
-        <div class="topline">
-          <div class="brandbox">
-            <strong>CUMBRES BLANCAS</strong>
-            <span>Restauración</span>
-          </div>
-          <div class="official">
-            Certificado oficial<br>de regalo
-          </div>
-        </div>
+function clean(v){
+  if(!v || v.includes("{{")) return "";
+  return decodeURIComponent(v.replace(/\+/g," "));
+}
 
-        <div class="hero">
-          <span class="black">Has regalado</span>
-          <span class="green1">vida</span>
-          <span class="green2">y esperanza</span>
-        </div>
+const quienRegala = clean(qs("nombre"));
+const quienRecibe = clean(qs("regalo"));
+const frailejon = clean(qs("frailejon"));
+const planta = clean(qs("planta"));
+const adopcion = clean(qs("adopcion"));
 
-        <div class="subtext">
-          Este regalo representa un gesto de <strong>cuidado y restauración</strong> para los páramos y bosques de Colombia.
-        </div>
-      </div>
+if(quienRecibe){
+  document.getElementById("para").textContent = "Para: " + quienRecibe;
+}
 
-      <div class="right">
-        <div class="side-note">Incluye certificado de regalo</div>
+if(quienRegala){
+  document.getElementById("de").textContent = "De: " + quienRegala;
+}
 
-        <div class="collage top"></div>
-        <div class="collage bottom"></div>
+let tipo = "Adopción";
 
-        <div class="plant-badge">
-          <div class="succulent">
-            <div class="leaf c"></div>
-            <div class="leaf l1"></div>
-            <div class="leaf r1"></div>
-            <div class="leaf l2"></div>
-            <div class="leaf r2"></div>
-            <div class="leaf l3"></div>
-            <div class="leaf r3"></div>
-          </div>
-        </div>
+if(frailejon && planta){
+  tipo = "Frailejón y planta nativa";
+}else if(frailejon){
+  tipo = "Frailejón";
+}else if(planta){
+  tipo = "Planta nativa";
+}
 
-        <div class="bird b1"></div>
-        <div class="bird b2"></div>
+document.getElementById("tipo").textContent = tipo;
 
-        <div class="landscape">
-          <div class="mount m1"></div>
-          <div class="mount m2"></div>
-          <div class="mount m3"></div>
+if(adopcion){
+  document.getElementById("plantula").textContent = adopcion;
+}
+</script>
 
-          <div class="creatures">
-            <div class="creature llama"></div>
-            <div class="creature tree1"></div>
-            <div class="creature tree2"></div>
-            <div class="creature tree3"></div>
-          </div>
-        </div>
-
-        <div class="certificate">
-          <div class="kicker">Certificado oficial de regalo</div>
-          <h1 class="title">Un regalo con propósito</h1>
-          <p class="lead">
-            Este certificado reconoce un regalo realizado para apoyar la conservación de especies nativas y la restauración de ecosistemas altoandinos.
-          </p>
-
-          <div class="meta">
-            <div class="row" id="recipientRow">
-              <div class="label">Otorgado a</div>
-              <div class="value" id="recipientValue">—</div>
-            </div>
-
-            <div class="row" id="giverRow">
-              <div class="label">Regalado por</div>
-              <div class="value" id="giverValue">—</div>
-            </div>
-
-            <div class="row" id="typeRow">
-              <div class="label">Tipo de regalo</div>
-              <div class="value" id="typeValue">Regalo</div>
-            </div>
-
-            <div class="row hidden" id="adopcionRow">
-              <div class="label">Nombre de adopción</div>
-              <div class="value" id="adopcionValue">—</div>
-            </div>
-
-            <div class="row" id="frailejonRow">
-              <div class="label">Frailejón</div>
-              <div class="value" id="frailejonValue">—</div>
-            </div>
-
-            <div class="row" id="plantaRow">
-              <div class="label">Planta nativa</div>
-              <div class="value" id="plantaValue">—</div>
-            </div>
-          </div>
-
-          <div class="story" id="storyText">
-            Este certificado acredita un regalo como símbolo de cuidado, restauración y compromiso con la vida de los ecosistemas de montaña de Colombia.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    function normalize(value){
-      if(!value) return "";
-      const v = String(value).trim();
-      if(v === "-" || v.toLowerCase() === "null" || v.toLowerCase() === "undefined") return "";
-      return decodeURIComponent(v.replace(/\+/g, " "));
-    }
-
-    function qs(name){
-      const params = new URLSearchParams(window.location.search);
-      return normalize(params.get(name));
-    }
-
-    function hide(id){
-      const el = document.getElementById(id);
-      if(el) el.classList.add("hidden");
-    }
-
-    function text(id, value){
-      const el = document.getElementById(id);
-      if(el) el.textContent = value;
-    }
-
-    const recipient =
-      qs("regalado") ||
-      qs("destinatario") ||
-      qs("recibe") ||
-      qs("persona") ||
-      qs("nombre_regalado");
-
-    const giver =
-      qs("regalante") ||
-      qs("nombre") ||
-      qs("donante") ||
-      qs("quien_regala");
-
-    const frailejon = qs("frailejon");
-    const planta = qs("planta");
-    const adopcion = qs("adopcion");
-
-    const hasFrailejon = frailejon !== "";
-    const hasPlanta = planta !== "";
-    const hasAdopcion = adopcion !== "";
-
-    if(recipient){
-      text("recipientValue", recipient);
-    } else {
-      text("recipientValue", "Persona destinataria");
-    }
-
-    if(giver){
-      text("giverValue", giver);
-    } else {
-      hide("giverRow");
-    }
-
-    if(hasFrailejon){
-      text("frailejonValue", frailejon);
-    } else {
-      hide("frailejonRow");
-    }
-
-    if(hasPlanta){
-      text("plantaValue", planta);
-    } else {
-      hide("plantaRow");
-    }
-
-    if(hasAdopcion){
-      text("adopcionValue", adopcion);
-      document.getElementById("adopcionRow").classList.remove("hidden");
-    }
-
-    let typeLabel = "Regalo";
-    if(hasFrailejon && hasPlanta){
-      typeLabel = "Combo";
-    } else if(hasFrailejon){
-      typeLabel = "Frailejón";
-    } else if(hasPlanta){
-      typeLabel = "Planta nativa";
-    } else if(hasAdopcion){
-      typeLabel = adopcion;
-    }
-    text("typeValue", typeLabel);
-
-    let story = "";
-
-    if(recipient && giver){
-      story += `Este certificado acredita que ${recipient} ha recibido un regalo de ${giver} como un gesto de cuidado, vida y restauración para los ecosistemas altoandinos de Colombia. `;
-    } else if(recipient){
-      story += `Este certificado acredita que ${recipient} ha recibido un regalo como un gesto de cuidado, vida y restauración para los ecosistemas altoandinos de Colombia. `;
-    } else {
-      story += `Este certificado acredita un regalo como un gesto de cuidado, vida y restauración para los ecosistemas altoandinos de Colombia. `;
-    }
-
-    if(hasFrailejon && hasPlanta){
-      story += `El regalo incluye el frailejón “${frailejon}” y la planta nativa “${planta}”. `;
-    } else if(hasFrailejon){
-      story += `El regalo incluye el frailejón “${frailejon}”. `;
-    } else if(hasPlanta){
-      story += `El regalo incluye la planta nativa “${planta}”. `;
-    } else if(hasAdopcion){
-      story += `Este regalo corresponde a “${adopcion}”. `;
-    }
-
-    story += `Gracias por hacer parte de esta acción de conservación, memoria ecológica y esperanza.`;
-    text("storyText", story);
-  </script>
 </body>
 </html>
