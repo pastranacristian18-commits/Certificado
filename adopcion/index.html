@@ -176,36 +176,35 @@
     return decodeURIComponent(v.replace(/\+/g, " "));
   }
 
-  const nombre    = clean(qs("nombre"));     // adoptante
-  const frailejon = clean(qs("frailejon"));  // si existe, eligió frailejón
-  const planta    = clean(qs("planta"));     // si existe, eligió planta nativa
-  const adopcion  = clean(qs("adopcion"));   // nombre que le puso a su adopción
+  const nombre    = clean(qs("nombre"));     // nombre del adoptante
+  const frailejon = clean(qs("frailejon"));  // nombre del frailejón (vacío si no aplica)
+  const planta    = clean(qs("planta"));     // nombre de la planta nativa (vacío si no aplica)
 
   const adoptanteEl = document.getElementById("adoptante");
   const tipoEl      = document.getElementById("tipo");
   const plantulaEl  = document.getElementById("plantula");
 
-  // Adoptante
-  if (nombre) {
-    adoptanteEl.textContent = nombre;
-  } else {
-    adoptanteEl.textContent = "Adoptante";
-  }
+  // — Adoptante —
+  adoptanteEl.textContent = nombre || "Adoptante";
 
-  // Tipo de adopción
-  let tipo = "Adopción";
+  // — Tipo de adopción —
   if (frailejon && planta) {
-    tipo = "Frailejón y planta nativa";
+    tipoEl.textContent = "Frailejón y Planta Nativa";
   } else if (frailejon) {
-    tipo = "Frailejón";
+    tipoEl.textContent = "Frailejón";
   } else if (planta) {
-    tipo = "Planta nativa";
+    tipoEl.textContent = "Planta Nativa";
+  } else {
+    tipoEl.textContent = "Adopción";
   }
-  tipoEl.textContent = tipo;
 
-  // Nombre de la plántula = nombre que puso a la adopción
-  if (adopcion) {
-    plantulaEl.textContent = adopcion;
+  // — Nombre de la plántula —
+  if (frailejon && planta) {
+    plantulaEl.textContent = frailejon + " | " + planta;
+  } else if (frailejon) {
+    plantulaEl.textContent = frailejon;
+  } else if (planta) {
+    plantulaEl.textContent = planta;
   } else {
     plantulaEl.textContent = "Nombre de la plántula";
   }
