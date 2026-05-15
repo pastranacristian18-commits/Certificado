@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Certificado de regalo</title>
+<title>Certificado</title>
 
 <style>
   html, body{
@@ -18,32 +18,36 @@
     display:flex;
     flex-direction:column;
     align-items:center;
+    justify-content:flex-start;
     padding:18px;
   }
 
   .topbar{
     width:min(1200px,100%);
-    margin-bottom:10px;
+    margin:0 auto 12px auto;
     display:flex;
     justify-content:flex-end;
   }
 
   .btn{
+    appearance:none;
     border:none;
     background:#111;
     color:#fff;
     cursor:pointer;
     padding:12px 18px;
     border-radius:999px;
-    font-weight:bold;
+    font-size:14px;
+    font-weight:700;
   }
 
   .sheet{
     position:relative;
     width:min(1200px,100%);
-    aspect-ratio:1536/942;
+    aspect-ratio: 1536 / 942;
+    box-shadow:0 20px 40px rgba(0,0,0,.18);
     overflow:hidden;
-    box-shadow:0 20px 40px rgba(0,0,0,.2);
+    background:#eef3f3;
   }
 
   .bg{
@@ -52,116 +56,156 @@
     width:100%;
     height:100%;
     object-fit:cover;
+    z-index:1;
+    user-select:none;
+    pointer-events:none;
   }
 
   .layer{
     position:absolute;
     inset:0;
+    z-index:2;
   }
 
-  .para{
+  .adoptante,
+  .tipo,
+  .plantula{
     position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    width:72%;
+    text-align:center;
+    color:#111;
+    word-break:break-word;
+  }
+
+  .adoptante{
     top:35.3%;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:2.1rem;
-    font-family:Georgia;
-    font-weight:bold;
-    text-align:center;
-    width:70%;
-  }
-
-  .de{
-    position:absolute;
-    top:32%;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:1.5rem;
-    text-align:center;
-    width:70%;
+    font-size:2.15rem;
+    line-height:1.15;
+    font-family:Georgia, "Times New Roman", serif;
+    font-weight:700;
   }
 
   .tipo{
-    position:absolute;
-    top:51.2%;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:2rem;
-    font-weight:bold;
-    text-align:center;
-    width:70%;
+    top:51.3%;
+    font-size:2.05rem;
+    line-height:1.2;
+    font-family:Georgia, "Times New Roman", serif;
+    font-weight:700;
   }
 
   .plantula{
-    position:absolute;
-    top:66.3%;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:1.9rem;
-    font-family:Georgia;
-    text-align:center;
-    width:70%;
+    top:65.3%;
+    font-size:2.0rem;
+    line-height:1.22;
+    font-family:Georgia, "Times New Roman", serif;
+    font-weight:700;
   }
 
+  .hidden{
+    display:none !important;
+  }
+
+  @page{
+    size: letter landscape;
+    margin: 0;
+  }
+
+  @media print{
+    html, body{
+      width:100%;
+      height:100%;
+      background:#fff !important;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      display:block;
+    }
+
+    .topbar{
+      display:none !important;
+    }
+
+    .sheet{
+      width:100vw;
+      height:auto;
+      box-shadow:none;
+      margin:0;
+    }
+  }
+
+  @media (max-width: 900px){
+    .adoptante{ font-size:1.45rem; }
+    .tipo{ font-size:1.35rem; }
+    .plantula{ font-size:1.2rem; }
+  }
 </style>
 </head>
-
 <body>
 
 <div class="topbar">
-  <button class="btn" onclick="window.print()">Descargar PDF</button>
+  <button class="btn" onclick="window.print()">Descargar / Guardar PDF</button>
 </div>
 
 <div class="sheet">
-  <img class="bg" src="fondo.png">
+  <img class="bg" src="fondo.png" alt="Certificado de adopción">
 
   <div class="layer">
-    <div class="para" id="para">—</div>
-    <div class="de" id="de">De: —</div>
+    <div class="adoptante" id="adoptante">Adoptante</div>
     <div class="tipo" id="tipo">Adopción</div>
-    <div class="plantula" id="plantula"></div>
+    <div class="plantula" id="plantula">Nombre de la plántula</div>
   </div>
 </div>
 
 <script>
-function qs(n){
-  return new URLSearchParams(window.location.search).get(n) || "";
-}
+  function qs(name){
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name) || "";
+  }
 
-function clean(v){
-  if(!v || v.includes("{{")) return "";
-  return decodeURIComponent(v.replace(/\+/g," "));
-}
+  function clean(value){
+    const v = String(value || "").trim();
+    if (!v) return "";
+    if (v.includes("{{")) return "";
+    return decodeURIComponent(v.replace(/\+/g, " "));
+  }
 
-const quienRegala = clean(qs("nombre"));
-const quienRecibe = clean(qs("regalo"));
-const frailejon = clean(qs("frailejon"));
-const planta = clean(qs("planta"));
-const adopcion = clean(qs("adopcion"));
+  // nombre viene del merge tag {{custom_field.nombre_del_adoptante_a_quien_le_regalas_la_adopcion}}
+  const nombre    = clean(qs("nombre"));
+  const frailejon = clean(qs("frailejon"));
+  const planta    = clean(qs("planta"));
 
-if(quienRecibe){
-  document.getElementById("para").textContent = "Para: " + quienRecibe;
-}
+  const adoptanteEl = document.getElementById("adoptante");
+  const tipoEl      = document.getElementById("tipo");
+  const plantulaEl  = document.getElementById("plantula");
 
-if(quienRegala){
-  document.getElementById("de").textContent = "De: " + quienRegala;
-}
+  // — Adoptante —
+  adoptanteEl.textContent = nombre || "Adoptante";
 
-let tipo = "Adopción";
+  // — Tipo de adopción —
+  if (frailejon && planta) {
+    tipoEl.textContent = "Frailejón y Planta Nativa";
+  } else if (frailejon) {
+    tipoEl.textContent = "Frailejón";
+  } else if (planta) {
+    tipoEl.textContent = "Planta Nativa";
+  } else {
+    tipoEl.textContent = "Adopción";
+  }
 
-if(frailejon && planta){
-  tipo = "Frailejón y planta nativa";
-}else if(frailejon){
-  tipo = "Frailejón";
-}else if(planta){
-  tipo = "Planta nativa";
-}
-
-document.getElementById("tipo").textContent = tipo;
-
-if(adopcion){
-  document.getElementById("plantula").textContent = adopcion;
-}
+  // — Nombre de la plántula —
+  if (frailejon && planta) {
+    plantulaEl.textContent = frailejon + " | " + planta;
+  } else if (frailejon) {
+    plantulaEl.textContent = frailejon;
+  } else if (planta) {
+    plantulaEl.textContent = planta;
+  } else {
+    plantulaEl.textContent = "Nombre de la plántula";
+  }
 </script>
 
 </body>
