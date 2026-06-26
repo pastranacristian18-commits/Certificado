@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adoption Certificate</title>
+<title>Certificado</title>
+
 <style>
   html, body{
     margin:0;
@@ -66,36 +67,47 @@
     z-index:2;
   }
 
-  /* Nombre del adoptante — va sobre la línea de "awarded to:" */
-  .recipient{
+  .adoptante,
+  .tipo,
+  .plantula{
     position:absolute;
     left:50%;
     transform:translateX(-50%);
-    width:60%;
+    width:72%;
     text-align:center;
     color:#111;
     word-break:break-word;
-    top:36%;
-    font-size:2.2rem;
+  }
+
+  /* concedido a: */
+  .adoptante{
+    top:35.3%;
+    font-size:2.15rem;
     line-height:1.15;
     font-family:Georgia, "Times New Roman", serif;
     font-weight:700;
   }
 
-  /* Nombre(s) de plántula(s) — va sobre la línea de "Seedling Name:" */
-  .plantName{
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
-    width:60%;
-    text-align:center;
-    color:#111;
-    word-break:break-word;
-    top:52%;
+  /* tipo de adopción */
+  .tipo{
+    top:51.3%;
+    font-size:2.05rem;
+    line-height:1.2;
+    font-family:Georgia, "Times New Roman", serif;
+    font-weight:700;
+  }
+
+  /* nombre de la plántula */
+  .plantula{
+    top:65.3%;
     font-size:2.0rem;
     line-height:1.22;
     font-family:Georgia, "Times New Roman", serif;
     font-weight:700;
+  }
+
+  .hidden{
+    display:none !important;
   }
 
   @page{
@@ -110,9 +122,16 @@
       background:#fff !important;
       margin:0;
       padding:0;
+    }
+
+    body{
       display:block;
     }
-    .topbar{ display:none !important; }
+
+    .topbar{
+      display:none !important;
+    }
+
     .sheet{
       width:100vw;
       height:auto;
@@ -122,23 +141,25 @@
   }
 
   @media (max-width: 900px){
-    .recipient{ font-size:1.4rem; }
-    .plantName{ font-size:1.2rem; }
+    .adoptante{ font-size:1.45rem; }
+    .tipo{ font-size:1.35rem; }
+    .plantula{ font-size:1.2rem; }
   }
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <button class="btn" onclick="window.print()">Download / Save PDF</button>
+  <button class="btn" onclick="window.print()">Descargar / Guardar PDF</button>
 </div>
 
 <div class="sheet">
-  <img class="bg" src="background.png" alt="Adoption Certificate">
+  <img class="bg" src="fondo.png" alt="Certificado de adopción">
 
   <div class="layer">
-    <div class="recipient" id="recipient"></div>
-    <div class="plantName"  id="plantName"></div>
+    <div class="adoptante" id="adoptante">Adoptante</div>
+    <div class="tipo" id="tipo">Adopción</div>
+    <div class="plantula" id="plantula">Nombre de la plántula</div>
   </div>
 </div>
 
@@ -155,24 +176,38 @@
     return decodeURIComponent(v.replace(/\+/g, " "));
   }
 
-  const recipientName   = clean(qs("nombre"));
-  const frailejonName   = clean(qs("frailejon"));
-  const nativePlantName = clean(qs("planta"));
+  const nombre    = clean(qs("nombre"));     // nombre del adoptante
+  const frailejon = clean(qs("frailejon"));  // nombre del frailejón (vacío si no aplica)
+  const planta    = clean(qs("planta"));     // nombre de la planta nativa (vacío si no aplica)
 
-  // — Nombre del adoptante —
-  document.getElementById("recipient").textContent = recipientName;
+  const adoptanteEl = document.getElementById("adoptante");
+  const tipoEl      = document.getElementById("tipo");
+  const plantulaEl  = document.getElementById("plantula");
 
-  // — Nombre(s) de plántula(s) —
-  // Solo muestra lo que aplica, sin placeholders
-  if (frailejonName && nativePlantName) {
-    document.getElementById("plantName").textContent =
-      frailejonName + "  |  " + nativePlantName;
-  } else if (frailejonName) {
-    document.getElementById("plantName").textContent = frailejonName;
-  } else if (nativePlantName) {
-    document.getElementById("plantName").textContent = nativePlantName;
+  // — Adoptante —
+  adoptanteEl.textContent = nombre || "Adoptante";
+
+  // — Tipo de adopción —
+  if (frailejon && planta) {
+    tipoEl.textContent = "Frailejón y Planta Nativa";
+  } else if (frailejon) {
+    tipoEl.textContent = "Frailejón";
+  } else if (planta) {
+    tipoEl.textContent = "Planta Nativa";
+  } else {
+    tipoEl.textContent = "Adopción";
   }
-  // Si ninguno aplica, el div queda vacío y limpio
+
+  // — Nombre de la plántula —
+  if (frailejon && planta) {
+    plantulaEl.textContent = frailejon + " | " + planta;
+  } else if (frailejon) {
+    plantulaEl.textContent = frailejon;
+  } else if (planta) {
+    plantulaEl.textContent = planta;
+  } else {
+    plantulaEl.textContent = "Nombre de la plántula";
+  }
 </script>
 
 </body>
